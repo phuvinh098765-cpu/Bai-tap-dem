@@ -1,0 +1,529 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXTREME CALCULUS | Mathematics Lab</title>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@400;500;700&display=swap');
+
+:root {
+ --bg:#080b16;
+ --panel:#11182b;
+ --cyan:#00e5ff;
+ --purple:#a855f7;
+ --text:#e8f1ff;
+ --muted:#8998b5;
+ --green:#00ffa3;
+ --red:#ff416c;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ background:var(--bg);
+ color:var(--text);
+ font-family:Inter,sans-serif;
+ min-height:100vh;
+}
+
+header{
+ padding:25px 7%;
+ border-bottom:1px solid #26304a;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ background:#0b1020;
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+
+.logo{
+ font-family:Orbitron;
+ color:var(--cyan);
+ font-size:21px;
+ font-weight:800;
+}
+
+.logo span{color:var(--purple)}
+
+nav a{
+ color:var(--muted);
+ text-decoration:none;
+ margin-left:20px;
+ font-size:13px;
+}
+
+nav a:hover{color:var(--cyan)}
+
+.hero{
+ padding:75px 7% 50px;
+ background:radial-gradient(ellipse at top,#17264a,#080b16 70%);
+}
+
+.tag{
+ color:var(--green);
+ letter-spacing:4px;
+ font-size:11px;
+}
+
+h1{
+ font-family:Orbitron;
+ font-size:clamp(30px,5vw,60px);
+ margin:20px 0;
+ line-height:1.2;
+}
+
+h1 span{
+ color:var(--cyan);
+ text-shadow:0 0 30px #00e5ff55;
+}
+
+.hero p{
+ color:var(--muted);
+ max-width:650px;
+ line-height:1.8;
+}
+
+.container{padding:30px 7%}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+ gap:18px;
+ margin-top:30px;
+}
+
+.stat,.card,.exercise{
+ background:var(--panel);
+ border:1px solid #263451;
+ border-radius:12px;
+ padding:23px;
+}
+
+.stat h2{
+ font-family:Orbitron;
+ color:var(--cyan);
+ font-size:27px;
+}
+
+.stat p{color:var(--muted);font-size:12px;margin-top:8px}
+
+.section-title{
+ font-family:Orbitron;
+ font-size:22px;
+ margin:35px 0 20px;
+}
+
+.section-title span{color:var(--cyan)}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+ gap:18px;
+}
+
+.card{
+ cursor:pointer;
+ transition:.3s;
+}
+
+.card:hover{
+ transform:translateY(-5px);
+ border-color:var(--cyan);
+ box-shadow:0 0 25px #00e5ff16;
+}
+
+.card .icon{font-size:32px}
+.card h3{margin:15px 0 10px}
+.card p{color:var(--muted);font-size:13px;line-height:1.7}
+
+.difficulty{
+ display:inline-block;
+ margin-top:15px;
+ padding:5px 10px;
+ border-radius:5px;
+ font-size:10px;
+ background:#331c45;
+ color:#d8a5ff;
+}
+
+.exercise{margin-bottom:20px}
+
+.exercise h3{
+ color:var(--cyan);
+ margin-bottom:15px;
+}
+
+.formula{
+ background:#090f20;
+ padding:20px;
+ border-left:3px solid var(--purple);
+ border-radius:5px;
+ overflow-x:auto;
+ margin:15px 0;
+ font-size:17px;
+}
+
+.exercise p{
+ line-height:1.8;
+ color:#bdc9df;
+}
+
+input,textarea{
+ width:100%;
+ padding:13px;
+ margin-top:12px;
+ background:#080d19;
+ color:white;
+ border:1px solid #34415d;
+ border-radius:7px;
+ outline:none;
+ font-family:Inter;
+}
+
+input:focus,textarea:focus{
+ border-color:var(--cyan);
+}
+
+button{
+ padding:12px 20px;
+ margin-top:12px;
+ border:none;
+ border-radius:6px;
+ background:linear-gradient(90deg,#00bcd4,#7950f2);
+ color:white;
+ font-weight:700;
+ cursor:pointer;
+}
+
+button:hover{filter:brightness(1.2)}
+
+.result{
+ margin-top:15px;
+ padding:12px;
+ border-radius:6px;
+ background:#0b1425;
+ display:none;
+ line-height:1.7;
+}
+
+.timer{
+ font-family:Orbitron;
+ font-size:25px;
+ color:var(--green);
+}
+
+footer{
+ text-align:center;
+ padding:40px;
+ color:#63718d;
+ border-top:1px solid #26304a;
+ margin-top:60px;
+ font-size:12px;
+}
+
+.hidden{display:none}
+
+@media(max-width:600px){
+ nav{display:none}
+ .hero{padding-top:45px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">CALCULUS<span>.X</span></div>
+ <nav>
+  <a href="#home">HOME</a>
+  <a href="#topics">TOPICS</a>
+  <a href="#exercises">CHALLENGES</a>
+  <a href="#timer">TIMER</a>
+ </nav>
+</header>
+
+<section class="hero" id="home">
+ <div class="tag">ADVANCED MATHEMATICS RESEARCH CENTER</div>
+ <h1>MASTER THE<br><span>INFINITE.</span></h1>
+ <p>
+  Khám phá thế giới giải tích nâng cao.
+  Từ giới hạn vô cực, đạo hàm nhiều biến,
+  tích phân suy rộng đến phương trình vi phân.
+  Không có giới hạn cho tư duy toán học.
+ </p>
+</section>
+
+<main class="container">
+
+<div class="stats">
+ <div class="stat">
+  <h2>∞</h2>
+  <p>MATHEMATICAL UNIVERSE</p>
+ </div>
+ <div class="stat">
+  <h2>06</h2>
+  <p>ADVANCED TOPICS</p>
+ </div>
+ <div class="stat">
+  <h2>10/10</h2>
+  <p>DIFFICULTY LEVEL</p>
+ </div>
+ <div class="stat">
+  <h2 id="score">0</h2>
+  <p>YOUR SCORE</p>
+ </div>
+</div>
+
+<h2 class="section-title" id="topics">
+ MATHEMATICAL <span>DOMAINS</span>
+</h2>
+
+<div class="grid">
+ <div class="card">
+  <div class="icon">∞</div>
+  <h3>Limits & Continuity</h3>
+  <p>Giới hạn đa biến, giới hạn vô cực, liên tục đều và định lý L'Hôpital.</p>
+  <span class="difficulty">EXTREME</span>
+ </div>
+
+ <div class="card">
+  <div class="icon">∂</div>
+  <h3>Differential Calculus</h3>
+  <p>Đạo hàm cấp cao, đạo hàm riêng, gradient và Hessian.</p>
+  <span class="difficulty">ADVANCED</span>
+ </div>
+
+ <div class="card">
+  <div class="icon">∫</div>
+  <h3>Integral Calculus</h3>
+  <p>Tích phân suy rộng, tích phân đường và tích phân mặt.</p>
+  <span class="difficulty">EXTREME</span>
+ </div>
+
+ <div class="card">
+  <div class="icon">Σ</div>
+  <h3>Infinite Series</h3>
+  <p>Chuỗi Fourier, chuỗi Taylor, hội tụ tuyệt đối và có điều kiện.</p>
+  <span class="difficulty">EXTREME</span>
+ </div>
+
+ <div class="card">
+  <div class="icon">∇</div>
+  <h3>Multivariable Analysis</h3>
+  <p>Không gian nhiều chiều, Jacobian, divergence và curl.</p>
+  <span class="difficulty">EXPERT</span>
+ </div>
+
+ <div class="card">
+  <div class="icon">dy/dx</div>
+  <h3>Differential Equations</h3>
+  <p>Phương trình vi phân tuyến tính, phi tuyến và hệ phương trình.</p>
+  <span class="difficulty">EXPERT</span>
+ </div>
+</div>
+
+<h2 class="section-title" id="exercises">
+ THE <span>ULTIMATE CHALLENGE</span>
+</h2>
+
+<div class="exercise">
+ <h3>01 — LIMITS FROM HELL</h3>
+ <p>Tính giới hạn sau:</p>
+ <div class="formula">
+ \[
+ \lim_{x\to0}
+ \frac{e^{x^2}-\cos x^2-\sin x^2}
+ {x^4}
+ \]
+ </div>
+ <input id="a1" placeholder="Nhập đáp án chính xác...">
+ <button onclick="check(1)">SUBMIT ANSWER</button>
+ <div class="result" id="r1"></div>
+</div>
+
+<div class="exercise">
+ <h3>02 — IMPROPER INTEGRAL</h3>
+ <p>Tính tích phân suy rộng:</p>
+ <div class="formula">
+ \[
+ I=\int_0^\infty \frac{x^3}{e^x-1}\,dx
+ \]
+ </div>
+ <input id="a2" placeholder="Nhập đáp án (có thể dùng pi)...">
+ <button onclick="check(2)">SUBMIT ANSWER</button>
+ <div class="result" id="r2"></div>
+</div>
+
+<div class="exercise">
+ <h3>03 — INFINITE SERIES</h3>
+ <p>Xác định tổng chuỗi:</p>
+ <div class="formula">
+ \[
+ S=\sum_{n=1}^{\infty}\frac{1}{n(n+1)}
+ \]
+ </div>
+ <input id="a3" placeholder="Nhập đáp án...">
+ <button onclick="check(3)">SUBMIT ANSWER</button>
+ <div class="result" id="r3"></div>
+</div>
+
+<div class="exercise">
+ <h3>04 — MULTIVARIABLE CALCULUS</h3>
+ <p>Tìm gradient của hàm số:</p>
+ <div class="formula">
+ \[
+ f(x,y)=x^2y^3+e^{xy}+\ln(x^2+y^2)
+ \]
+ </div>
+ <p>Hãy viết hai thành phần của gradient theo thứ tự ∂f/∂x và ∂f/∂y.</p>
+ <textarea rows="3" placeholder="Nhập lời giải của bạn..."></textarea>
+ <p style="color:#8998b5;font-size:12px">
+ Bài này yêu cầu trình bày tự luận, không chấm tự động.
+ </p>
+</div>
+
+<div class="exercise">
+ <h3>05 — DIFFERENTIAL EQUATION</h3>
+ <p>Giải phương trình vi phân với điều kiện ban đầu:</p>
+ <div class="formula">
+ \[
+ y''-3y'+2y=0
+ \]
+ \[
+ y(0)=1,\quad y'(0)=0
+ \]
+ </div>
+ <input id="a5" placeholder="Nhập nghiệm dưới dạng biểu thức...">
+ <button onclick="check(5)">SUBMIT ANSWER</button>
+ <div class="result" id="r5"></div>
+</div>
+
+<h2 class="section-title" id="timer">
+ EXAM <span>COUNTDOWN</span>
+</h2>
+
+<div class="exercise">
+ <p>Thời gian làm bài:</p>
+ <div class="timer" id="clock">60:00</div>
+ <button onclick="startTimer()">START EXAM</button>
+ <button onclick="resetTimer()">RESET</button>
+</div>
+
+<h2 class="section-title">MATHEMATICAL <span>CONSTANTS</span></h2>
+
+<div class="grid">
+ <div class="stat"><h2>π</h2><p>3.14159265358979...</p></div>
+ <div class="stat"><h2>e</h2><p>2.71828182845904...</p></div>
+ <div class="stat"><h2>φ</h2><p>1.61803398874989...</p></div>
+ <div class="stat"><h2>γ</h2><p>0.57721566490153...</p></div>
+</div>
+
+</main>
+
+<footer>
+ EXTREME CALCULUS X — ADVANCED MATHEMATICS LAB<br><br>
+ THINK DEEPLY. CALCULATE PRECISELY. PROVE EVERYTHING.
+</footer>
+
+<script>
+let score=0;
+let remaining=3600;
+let timer=null;
+
+const answers={
+ 1:{
+  accepted:["0.5","1/2","0.5"],
+  solution:"Đáp án: 1/2. Khai triển Taylor: e^(x²)=1+x²+x⁴/2+..., cos(x²)=1-x⁴/2+..., sin(x²)=x²+O(x⁶). Tử số có hệ số x⁴ là 1."
+ },
+ 2:{
+  accepted:["pi^4/15","π^4/15","6.493939"],
+  solution:"Đáp án: π⁴/15. Dùng khai triển 1/(e^x-1)=Σ(e^(-nx)), tích phân từng số hạng cho 6Σ(1/n⁴)=6ζ(4)=π⁴/15."
+ },
+ 3:{
+  accepted:["1"],
+  solution:"Đáp án: 1. Vì 1/[n(n+1)]=1/n-1/(n+1), chuỗi thu gọn thành 1."
+ },
+ 5:{
+  accepted:["2e^x-e^2x","2e^x-e^(2x)","2e^x-e^{2x}"],
+  solution:"Nghiệm tổng quát y=C1e^x+C2e^(2x). Từ điều kiện ban đầu, C1=2, C2=-1. Vậy y=2e^x-e^(2x)."
+ }
+};
+
+function normalize(s){
+ return s.toLowerCase().replace(/\s/g,"").replace(/π/g,"pi");
+}
+
+function check(n){
+ const input=document.getElementById("a"+n).value;
+ const result=document.getElementById("r"+n);
+ result.style.display="block";
+
+ if(!input.trim()){
+  result.innerHTML="⚠️ Vui lòng nhập đáp án.";
+  return;
+ }
+
+ const correct=answers[n].accepted.some(
+  x=>normalize(x)===normalize(input)
+ );
+
+ if(correct){
+  result.innerHTML="✓ CHÍNH XÁC!<br>"+answers[n].solution;
+  result.style.color="#00ffa3";
+
+  if(!result.dataset.scored){
+   score+=20;
+   document.getElementById("score").textContent=score;
+   result.dataset.scored="true";
+  }
+ }else{
+  result.innerHTML="✗ CHƯA CHÍNH XÁC.<br>"+answers[n].solution;
+  result.style.color="#ff416c";
+ }
+}
+
+function updateClock(){
+ const m=Math.floor(remaining/60);
+ const s=remaining%60;
+ document.getElementById("clock").textContent=
+ String(m).padStart(2,"0")+":"+
+ String(s).padStart(2,"0");
+
+ if(remaining<=0){
+  clearInterval(timer);
+  timer=null;
+  alert("HẾT GIỜ LÀM BÀI!");
+ }
+}
+
+function startTimer(){
+ if(timer)return;
+ if(remaining<=0)remaining=3600;
+ timer=setInterval(()=>{
+  remaining--;
+  updateClock();
+ },1000);
+}
+
+function resetTimer(){
+ clearInterval(timer);
+ timer=null;
+ remaining=3600;
+ updateClock();
+}
+
+updateClock();
+</script>
+
+</body>
+</html>
